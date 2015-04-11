@@ -18,6 +18,8 @@ int *merge_sort(int *numbers, int count) {
   int t_idx;
   int i;
   int l_idx;
+  int l_max;
+  int r_max;
   int r_idx;
   int *target = malloc(count * sizeof(int));
   while(list_size < count) {
@@ -25,7 +27,9 @@ int *merge_sort(int *numbers, int count) {
     for(i = 0; i < count; i += (2 * list_size)) {
       l_idx = i;
       r_idx = i + list_size;
-      while(l_idx < i + list_size && r_idx < i + (2 * list_size) && r_idx < count) {
+      l_max = r_idx;
+      r_max = r_idx + list_size < count ? r_idx + list_size : count;
+      while(l_idx < l_max && r_idx < r_max) {
         if(numbers[l_idx] < numbers[r_idx]) {
           target[t_idx] = numbers[l_idx];
           l_idx++;
