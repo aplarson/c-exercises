@@ -13,6 +13,28 @@ void die(const char *message) {
   exit(1);
 }
 
+int max_diff(int *numbers, int count) {
+  int diff = 0;
+  int left = 0;
+  int right = 0;
+  int i;
+  for (i = 0; i < count; i++) {
+    if (numbers[i] < numbers[left]) {
+      left = i;
+      if (left > right) {
+        right = left;
+      }
+    }
+    if (numbers[i] >= numbers[right]) {
+      right = i;
+    }
+    if (numbers[right] - numbers[left] > diff) {
+      diff = numbers[right] - numbers[left];
+    }
+  }
+  return diff;
+}
+
 int *merge_sort(int *numbers, int count) {
   int list_size = 1;
   int t_idx;
@@ -87,8 +109,8 @@ int main(int argc, char *argv[])
      numbers[i] = atoi(inputs[i]);
   }
 
-  test_sorting(numbers, count);
-
+  int diff = max_diff(numbers, count);
+  printf("%d\n", diff);
   free(numbers);
 
   return 0;
